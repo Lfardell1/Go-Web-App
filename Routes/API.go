@@ -3,6 +3,7 @@ package Routes
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
 type Response struct {
@@ -11,6 +12,13 @@ type Response struct {
 }
 
 type RequestHandler struct{}
+
+func GetTime(w http.ResponseWriter, r *http.Request) {
+	// Logic to fetch time data from a database or provide dummy data
+	time := time.Now()
+	w.Write([]byte(time.String()))
+
+}
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch users data from a database or provide dummy data

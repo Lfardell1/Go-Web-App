@@ -31,6 +31,7 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func RetrieveUsers() ([]models.User, error) {

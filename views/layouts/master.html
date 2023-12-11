@@ -10,10 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <!-- ** Plugins Needed for the Project **-->
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="../../static/plugins/bootstrap/bootstrap.min.css">
+
         <link rel="stylesheet" href="..//../static/plugins/fontawesome/css/all.css">
-        <script src="../../static/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- Main Stylesheet -->
         <link href="../../static/css/style.css" rel="stylesheet">
 
@@ -24,29 +22,43 @@
         <!--Favicon-->
         <link rel="shortcut icon" href="../../static/images/favicon.png" type="image/x-icon">
         <link rel="icon" href="../../static/images/favicon.png" type="image/x-icon">
+
     </head>
 
     <body>
-        <title>{{.title}}</title>
-        
+  
+            <div class="header">
+                <h2 style="
+                text-decoration: underline;">LEONS BLOG</h2>
+                <section class="sub-header">
+                    <a class="nav-link" href="">Backend Written in Golang</a>
+                    <a class="nav-link" href="">Frontend Written with pure HTML/CSS</a>
+                    <a class="nav-link" href="">HTMX/HYPERSCRIPT used for reactivity</a>
+                </section>
+             <section class="top">
+                 
+                    <ul class="navbar">
+                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+           
+                    </ul>
 
-        <!-- START main-wrapper -->
-    <section class="d-flex">
+             </section>
 
-        {{include "layouts/sidebar"}}
-        
-        {{include "layouts/mobilenav"}}
 
-        
+                
+            </div>
+
+     
+            <div class="row">
+
         {{template "content" .}}
-        
-        <hr>
-        {{include "layouts/footer"}}
+
+        {{include "layouts/sidebar" }}
+
+        </div>
+
+    {{include "layouts/footer"}}
+
     </body>
-        <!-- All JS Files -->
-        <script src="../../static/plugins/jQuery/jquery.min.js"></script>
-        
-    
-        <!-- Main Script -->
-        <script src="../../static/js/script.js"></script>
 </html>

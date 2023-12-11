@@ -1,33 +1,45 @@
+<div class="rightcolumn">
+    <div class="card">
+    <ul class="auth">
+      <li class="nav-link" _="on click toggle #login display to inline">
+        Login
+      </li>
+      <li class="nav-link" _="on click transition #register opacity to 1"> 
+        Register
+      </li>
+    </ul>
 
-<!-- start of sidenav -->
-<aside>
-    <div class="sidenav position-sticky d-flex flex-column justify-content-between">
-        <div class="navbar navbar-dark p-2 font-primary">
-            <ul class="navbar-nav text-center w-100">
-                <h1 class="mb-2 display-4 text-center mb-4 border-bottom pb-2">LEONS BLOG</h1>
-                <li class="nav-item display-2">
-                    <a class="nav-link text-white px-0" href="/">Home</a>
-                </li>
-                <li class="nav-item display-2">
-                    <a class="nav-link  text-white px-0" href="/about">About</a>
-                </li>
-                <li class="nav-item display-2">
-                    <a class="nav-link text-white px-0" href="contact.html">Contact</a>
-                </li>
-                <li class="nav-item display-2">
-                    <a href="login.html" class="nav-link display-4  text-white px-0">Login</a>
-                </li>
-            </ul> 
+     
+      <section name="login-box">
+        <div class="login">
+
+          <form action="/api/login" method="POST" id="login">
+          <!-- login form -->
+            <input type="email" name="email" id="email" placeholder="Email"/>
+            <input type="password" name="Password" id="Password" placeholder="Password"/>
+          </form>
+
+          <form action="" id="register">
+            <!--  register form -->
+            <input type="email" name="email" id="email" placeholder="Email"/>
+            <input type="text" name="Username" id="Username" placeholder="Username"/>
+            <input type="password" name="Password" id="Password" placeholder="Password"/>
+          </form>
         </div>
-        <!-- end of navbar-brand -->
-        <ul class="list-unstyled text-center mb-30">
-            
-            <li class="display-5 text-center mb-4 border-bottom pb-2" >BUILT WITH</li> 
-            <li class="mb-4"><a href="https://go.dev/" class="nav-link mb-4 text-white border-bottom pb-2 ">Go (Golang) Backend</a></li>
-            <li class="mb-4"><a href="https://www.w3schools.com/html/html_intro.asp" class="nav-link mb-4 text-white border-bottom pb-2 ">HTML/CSS Frontend - Bootstrap</a></li>
-            <li class="mb-4"><a href="https://htmx.org/" class="nav-link mb-4 text-white border-bottom pb-2">HTMX for dynamic content combined with Hyperscript - (Low JS footprint)</a></li>
-        </ul>
 
+    </section>
     </div>
-</aside>
-<!-- end of navbar -->
+    <div class="card">
+      <h2>About Me</h2>
+      <div class="fakeimg" style="height:100px;">Image</div>
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      <h3>Current Time For Me</h3>
+      <span hx-get="/api/time" hx-trigger="every 1s" hx-swap="outerHTML"></span>
+    </div>
+
+    <div class="card">
+      <h3>Follow Me</h3>
+      <p>Some text..</p>
+    </div>
+  </div>
+</div>

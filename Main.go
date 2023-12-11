@@ -50,10 +50,9 @@ func main() {
 	r.HandleFunc("/about", http.HandlerFunc(Route.AboutHandler))
 
 	// API Endpoints
+	r.HandleFunc("/api/time", http.HandlerFunc(Route.GetTime))
 	r.HandleFunc("/api/users", http.HandlerFunc(Route.GetUsers))
-	r.HandleFunc("/api/posts", http.HandlerFunc(Route.GetPosts))
 	r.HandleFunc("/api/posts/:id", http.HandlerFunc(Route.GetPost))
-	r.HandleFunc("/api/posts", http.HandlerFunc(Route.CreatePost))
 	r.HandleFunc("/api/users", http.HandlerFunc(Route.CreateUser))
 	r.HandleFunc("/api/login", http.HandlerFunc(Route.Login))
 	r.HandleFunc("/api/logout", http.HandlerFunc(Route.Logout))

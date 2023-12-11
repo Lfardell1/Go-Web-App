@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/foolin/goview"
-	Database "github.com/lfardell1/Go-Web-App-Blog/Database"
+	"github.com/lfardell1/Go-Web-App-Blog/Database"
 	models "github.com/lfardell1/Go-Web-App-Blog/Models"
 )
 
@@ -19,7 +19,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Render the render the template with the blogs var as context
 	goview.Render(w, http.StatusOK, "index", goview.M{
 		"Blogs": blogs,
 	})
