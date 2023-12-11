@@ -1,0 +1,52 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Leon's Blog - Personal Blog</title>
+    
+        <!-- mobile responsive meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- ** Plugins Needed for the Project **-->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../static/plugins/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="..//../static/plugins/fontawesome/css/all.css">
+        <script src="../../static/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- Main Stylesheet -->
+        <link href="../../static/css/style.css" rel="stylesheet">
+
+        <!-- HTMX and Hypermedia  -->
+        <script src="../../static/plugins/HTMX/htmx.min.js"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    
+        <!--Favicon-->
+        <link rel="shortcut icon" href="../../static/images/favicon.png" type="image/x-icon">
+        <link rel="icon" href="../../static/images/favicon.png" type="image/x-icon">
+    </head>
+
+    <body>
+        <title>{{.title}}</title>
+        
+
+        <!-- START main-wrapper -->
+    <section class="d-flex">
+
+        {{include "layouts/sidebar"}}
+        
+        {{include "layouts/mobilenav"}}
+
+        
+        {{template "content" .}}
+        
+        <hr>
+        {{include "layouts/footer"}}
+    </body>
+        <!-- All JS Files -->
+        <script src="../../static/plugins/jQuery/jquery.min.js"></script>
+        
+    
+        <!-- Main Script -->
+        <script src="../../static/js/script.js"></script>
+</html>
