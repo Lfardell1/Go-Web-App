@@ -3,7 +3,7 @@ package Database
 import (
 	"log"
 
-	models "github.com/lfardell1/Go-Web-App-Blog/Models"
+	models "github.com/lfardell1/Go-Web-App-Blog/models"
 	"github.com/upper/db/v4"
 	"github.com/upper/db/v4/adapter/mysql"
 )
@@ -35,7 +35,7 @@ func init() {
 }
 
 func RetrieveUsers() ([]models.User, error) {
-	UserCollection := conn.Collection("users")
+	UserCollection := conn.Collection("Users")
 	results := UserCollection.Find()
 
 	var users []models.User
@@ -47,15 +47,22 @@ func RetrieveUsers() ([]models.User, error) {
 	return users, nil
 }
 
-func RetrieveBlogPosts() ([]models.Post, error) {
-	BlogCollection := conn.Collection("blog_posts")
+func RetrieveBlogPost() ([]models.Post, error) {
+	BlogCollection := conn.Collection("Blogs")
 	resultsblogs := BlogCollection.Find()
 
-	var blog_posts []models.Post
-	err := resultsblogs.All(&blog_posts)
+	var posts []models.Post
+	err := resultsblogs.All(&posts)
 	if err != nil {
 		return nil, err
 	}
 
+	return posts, nil
+}
+
+func GetPaginatedResults(page uint) ([]models.Post, error) {
+
+	// establishing variables
+	var blog_posts []models.Post
 	return blog_posts, nil
 }

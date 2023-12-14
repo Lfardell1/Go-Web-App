@@ -6,19 +6,19 @@ import (
 
 	"github.com/foolin/goview"
 	"github.com/lfardell1/Go-Web-App-Blog/Database"
-	models "github.com/lfardell1/Go-Web-App-Blog/Models"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	// Handle GET / route logic here
-
-	// Retrieve the users from the database
-	var blogs []models.Post
-	// Insert into blogs var
-	blogs, err := Database.RetrieveBlogPosts()
+	// Retrieve the blogs from the database
+	blogs, err := Database.RetrieveBlogPost()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	for i := 0; i < len(blogs); i++ {
+
+	}
+
 	goview.Render(w, http.StatusOK, "index", goview.M{
 		"Blogs": blogs,
 	})
