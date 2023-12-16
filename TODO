@@ -1,3 +1,7 @@
-TODO:
-Make loop for posts
-Allow users to make posts
+Make a whole lot of html come from the server
+Make the a server based website
+ -HTMX Ideas 
+    - Regular pings for new comments
+    - Other users online 
+    - interactive server stuff
+Work out putting comments in sensible place

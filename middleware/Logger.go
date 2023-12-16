@@ -1,4 +1,4 @@
-package Helpers
+package middleware
 
 import (
 	"log"

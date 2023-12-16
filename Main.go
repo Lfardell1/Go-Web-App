@@ -7,8 +7,9 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/lfardell1/Go-Web-App-Blog/Helpers"
+
 	Route "github.com/lfardell1/Go-Web-App-Blog/Routes"
+	"github.com/lfardell1/Go-Web-App-Blog/middleware"
 )
 
 func main() {
@@ -32,10 +33,12 @@ func main() {
 	// Allow access to the static files
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	logger := Helpers.NewLogger()
+	logger := middleware.NewLogger()
 
-	// View Endpoints
-	r.HandleFunc("/", http.HandlerFunc(Route.IndexHandler))
+	// setting up some pagination
+	// still using the same handler function " / "
+	// this will call to our views endpoint which in turn with the parameters will call the database
+	r.HandleFunc("/{page:[0-9]*}", http.HandlerFunc(Route.IndexHandler))
 	r.HandleFunc("/login", http.HandlerFunc(Route.LoginHandler))
 	r.HandleFunc("/register", http.HandlerFunc(Route.RegisterHandler))
 	r.HandleFunc("/logout", http.HandlerFunc(Route.LogoutHandler))
@@ -50,6 +53,10 @@ func main() {
 	r.HandleFunc("/about", http.HandlerFunc(Route.AboutHandler))
 
 	// API Endpoints
+	r.HandleFunc("/api/Left/{page:[0-9]*}", http.HandlerFunc(Route.Left))
+	r.HandleFunc("/api/Right/{page:[0-9]*}", http.HandlerFunc(Route.Right))
+	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnLoginForm))
+	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnSignupForm))
 	r.HandleFunc("/api/time", http.HandlerFunc(Route.GetTime))
 	r.HandleFunc("/api/users", http.HandlerFunc(Route.GetUsers))
 	r.HandleFunc("/api/posts/:id", http.HandlerFunc(Route.GetPost))

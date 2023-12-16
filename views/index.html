@@ -1,22 +1,87 @@
-
-
-
-
-
 {{define "content"}}
 
-<div class="leftcolumn"> 
-  {{range .Blogs}}
-    
-    <div class="card">
-       
-        
-        <h2>{{ .Title }}</h2>
-      <h3>{{ .Author }}</h3>
-      <h5>Published: {{ .DateCreated.Format "Jan 02, 2006" }}</h5>
-      <img class="img" width="500" height="700"src="{{.ImageURL}}"></img>
-      <p>Author: <b>{{.Author}}</b></p>
-    </div>
-    {{end}}
+<div class="leftcolumn">
+  {{range .Posts}}
+
+  <div class="card">
+
+
+    <section class="Details">
+      <h3 class="authorbox">
+        <div class="beforename">
+          Author:
+        </div>
+        <div class="author">
+          {{ .Author }}
+        </div>
+      </h3>
+      <section class="title">
+        <h4 class="titlelead">
+          Title:
+        </h4>
+        <h2 class="title">
+          {{ .Title }}
+        </h2>
+      </section>
+    </section>
+    <hr>
+    <p class="Content">
+      <b>
+        {{ .Content }}
+      </b>
+    </p>
+    <h5>
+      Published:
+      {{ .DateCreated.Format "Jan 02, 2006" }}
+    </h5>
+    <img class="img" width="500" height="700" src="{{.ImageURL}}"></img>
+
   </div>
+  {{end}}
+</div>
+
+{{end}}
+{{define "sidebar"}}
+
+<div class="rightcolumn">
+  <div class="card">
+    <ul class="auth">
+     <li class="login-item">
+       <a class="nav-link" href="#login-box" hx-get="/login-form">
+         Login
+       </a>
+    </li>
+    
+    <li>
+        <a class="nav-link" href="#login-box" hx-get="/register-form">
+          Register
+        </a>
+      </ul>
+  </li>
+
+    <section name="login-box" id="login-box" hx-trigger="true">
+
+
+    </section>
+  </div>
+
+
+
+
+
+<div class="card">
+  <h2>About Me</h2>
+  <div class="fakeimg" style="height:100px;">Image</div>
+  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+  <h3>Current Time For Me</h3>
+  <span hx-get="/api/time" hx-trigger="every 1s" hx-swap="outerHTML"></span>
+</div>
+
+<div class="card">
+  <h3>Follow Me</h3>
+  <p>Some text..</p>
+</div>
+</div>
+</div>
+
 {{end}}

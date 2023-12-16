@@ -1,9 +1,7 @@
 package Routes
 
 import (
-	"encoding/json"
 	"net/http"
-	"time"
 )
 
 type Response struct {
@@ -14,67 +12,52 @@ type Response struct {
 type RequestHandler struct{}
 
 func GetTime(w http.ResponseWriter, r *http.Request) {
-	// Logic to fetch time data from a database or provide dummy data
-	time := time.Now()
-	w.Write([]byte(time.String()))
+
+}
+
+func ReturnLoginForm(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func ReturnSignupForm(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func Left(w http.ResponseWriter, r *http.Request) {
+}
+
+func Right(w http.ResponseWriter, r *http.Request) {
+
+}
+func PaginationHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch users data from a database or provide dummy data
-	users := []string{"user1", "user2", "user3"}
 
-	resp := Response{
-		Message: "List of users",
-		Data:    users,
-	}
-	sendResponse(w, http.StatusOK, resp)
 }
 
 func GetPosts(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch posts data from a database or provide dummy data
-	posts := []string{"post1", "post2", "post3"}
 
-	resp := Response{
-		Message: "List of posts",
-		Data:    posts,
-	}
-	sendResponse(w, http.StatusOK, resp)
 }
 
 // Implement other handler functions similarly
 
 func GetPost(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch post data from a database or provide dummy data
-	post := "post1"
 
-	resp := Response{
-		Message: "Post details",
-		Data:    post,
-	}
-	sendResponse(w, http.StatusOK, resp)
 }
 
 func GetUserPosts(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch user posts data from a database or provide dummy data
-	posts := []string{"post1", "post2"}
 
-	resp := Response{
-		Message: "User posts",
-		Data:    posts,
-	}
-	sendResponse(w, http.StatusOK, resp)
 }
 
 func GetUserPost(w http.ResponseWriter, r *http.Request) {
 	// Logic to fetch a specific user post data from a database or provide dummy data
-	post := "post1"
 
-	resp := Response{
-		Message: "User post details",
-		Data:    post,
-	}
-	sendResponse(w, http.StatusOK, resp)
 }
 
 // LoginAPIHandler handles the login functionality
@@ -132,10 +115,4 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	// Logic for retrieving user information by ID
 	// Implement your logic to retrieve user information by ID from a database or any source
-}
-
-func sendResponse(w http.ResponseWriter, statusCode int, resp Response) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(resp)
 }
