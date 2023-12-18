@@ -95,7 +95,13 @@ func PaginateBlogResults(page uint, postsPerPage uint) (models.Page, error) {
 		Posts:      posts,
 		TotalPosts: uint(totalPostsCount),
 		TotalPages: uint(totalPages),
+		CurPage:    page,
+		PrevPage:   page - 1,
+		NextPage:   page + 1,
 	}
+
+	log.Printf("data: %+v", totalPages)
+	log.Printf("data: %+v", page)
 
 	return paginatedData, nil
 }

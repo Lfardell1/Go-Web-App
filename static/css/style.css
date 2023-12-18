@@ -24,16 +24,22 @@ body {
 }
 
 .Headline {
-  font-size: 100px;
+  font-size: 70px;
   font-family: Abel;
-
+  
   margin: 10px 0;
 }
-
+.Headline:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+  transition: ease-in-out 0.4s;
+  
+}
 .sub-header {
   display: flex;
   font-size: 30px;
   font-family: Abel;
+  margin-left: 10px;
   justify-content: space-around;
   background-color: white;
   padding: 10px;
@@ -106,20 +112,88 @@ body {
   padding: 20px;
 }
 
-.leftcolumn {
+#leftcolumn {
   flex: 55%;
 }
 
-.rightcolumn {
+#rightcolumn {
   flex: 35%;
 }
 
 .card {
   background-color: white;
   padding: 30px;
-  /* Increased padding */
   margin: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+}
+
+.auth{
+  background-color: white;
+  padding: 30px;
+  margin: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-items: space-between;
+  font-family: comfortaa;
+}
+
+.login-button{
+  width:50%;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: comfortaa;
+  height:100%;
+  width:100%;
+}
+.register-button{
+  width:50%;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: comfortaa;
+  height:100%;
+  width:100%;
+  align-self: end;
+}
+
+
+
+/* Pagination Buttons */
+.Pagination{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-family: comfortaa;
+
+}
+.Paginate{
+  padding: 15px;
+  margin: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: white;
+}
+.Paginate:hover{
+  transform: scale(1.1);
+  transition: ease-in-out 2s;
+}
+
+/* comment section  */
+
+.comment-section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+.comment-header{
+  font-size: 30px;
+  font-family: comfortaa;
+  text-align: center;
+  margin-bottom: 20px;  
 }
 
 /* Adjust font sizes for different elements within the cards */
@@ -136,7 +210,6 @@ body {
   text-decoration: none;
   /* Initially removing the underline */
   position: relative;
-  display: inline-block;
 }
 
 .author:hover {
@@ -192,18 +265,19 @@ body {
   border-radius: 5px;
   margin-bottom: 15px;
 }
+.bottom-row{
+  display: flex;
+  flex-direction: row;
+  font-family: comfortaa;
+  font-size: 20px;
 
+}
 .rightcolumn .card {
   margin-bottom: 30px;
   /* Increased margin */
 }
 
-.auth {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-  list-style-type: none;
-}
+
 
 .button {
   padding: 8px 16px;
@@ -331,23 +405,17 @@ input[type="submit"] {
   border-radius: 4px;
 }
 
-/* Set login buttons color on enter */
-.login-item:hover{
-  background-color: #8a08085b;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
 
-}
 
 .footer{
   background-color: #333;
   color: white;
-  padding: 10px;
+  padding:24px;
   text-align: center;
   list-style: none;
+  line-height: 1.6;
   list-style-type: none;
+  list-style-position: inside;
   font-size: 22px;
   margin-top: 20px;
   font-family: comfortaa;

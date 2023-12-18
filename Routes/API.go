@@ -1,7 +1,15 @@
 package Routes
 
 import (
+	"html/template"
+	"log"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
+	Helpers "github.com/lfardell1/Go-Web-App-Blog/Helpers"
+	"github.com/lfardell1/Go-Web-App-Blog/middleware"
+	"github.com/lfardell1/Go-Web-App-Blog/models"
 )
 
 type Response struct {
@@ -23,11 +31,86 @@ func ReturnSignupForm(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Left(w http.ResponseWriter, r *http.Request) {
+func RenderBlogs(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	param := mux.Vars(r)
+	if param["page"] == "" || param["page"] == "0" {
+		param["page"] = "1"
+	}
+	page, err := strconv.Atoi(param["page"])
+	if page <= 0 {
+		page = 1
+	}
+	if err != nil {
+		log.Printf("Error retrieving page: %v", err)
+		http.Error(w, "Error retrieving page", http.StatusInternalServerError)
+		return
+	}
+
+	Helpers.RenderBlogPostsPage(w, page)
+
 }
 
 func Right(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 
+	param := mux.Vars(r)
+	if param["page"] == "" || param["page"] == "0" {
+		param["page"] = "1"
+	}
+	page, err := strconv.Atoi(param["page"])
+	if page <= 0 {
+		page = 1
+	}
+
+	if err != nil {
+		log.Printf("Error retrieving page: %v", err)
+		http.Error(w, "Error retrieving page", http.StatusInternalServerError)
+		return
+	}
+
+	// Fetch blog posts for the requested page using your middleware function
+	posts, err := middleware.PaginateBlogResults(uint(page))
+	if err != nil {
+		log.Printf("Error retrieving posts: %v", err)
+		http.Error(w, "Error retrieving posts", http.StatusInternalServerError)
+		return
+	}
+
+	// Render the retrieved posts using your template engine
+	// Render index template
+	data := struct {
+		Title string
+		Name  string
+		Posts []models.Post
+		Page  models.Page // Assuming Post is your data structure
+	}{
+		Title: "Go Web App",
+		Name:  "Leon",
+		Posts: posts.Posts,
+		Page:  posts,
+	}
+
+	// Parse the HTML template
+	tmpl, err := template.ParseFiles("template.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Execute the template with the updated data
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 func PaginationHandler(w http.ResponseWriter, r *http.Request) {
 

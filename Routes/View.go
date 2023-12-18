@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/foolin/goview"
+	"github.com/gorilla/mux"
 	"github.com/lfardell1/Go-Web-App-Blog/middleware"
 	"github.com/lfardell1/Go-Web-App-Blog/models"
 )
@@ -17,16 +18,19 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Extract and parse the page number from the URL query parameters
-	pageStr := r.URL.Query().Get("page")
-	page := 1 // Default to page 1 if not provided or invalid
-	if pageStr != "" {
-		var err error
-		page, err = strconv.Atoi(pageStr)
-		if err != nil || page <= 0 {
-			http.Error(w, "Invalid page number", http.StatusBadRequest)
-			return
-		}
+	param := mux.Vars(r)
+	if param["page"] == "" || param["page"] == "0" {
+		param["page"] = "1"
+	}
+	page, err := strconv.Atoi(param["page"])
+	if page <= 0 {
+		page = 1
+	}
+
+	if err != nil {
+		log.Printf("Error retrieving page: %v", err)
+		http.Error(w, "Error retrieving page", http.StatusInternalServerError)
+		return
 	}
 
 	// Fetch blog posts for the requested page using your middleware function
@@ -42,11 +46,13 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Title string
 		Name  string
-		Posts []models.Post // Assuming Post is your data structure
+		Posts []models.Post
+		Page  models.Page // Assuming Post is your data structure
 	}{
 		Title: "Go Web App",
 		Name:  "Leon",
-		Posts: posts.Posts, // Pass your posts here
+		Posts: posts.Posts,
+		Page:  posts,
 	}
 
 	goview.Render(w, http.StatusOK, "index", data)

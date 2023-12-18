@@ -1,49 +1,40 @@
-{{define "sidebar"}}
 
-  <div class="rightcolumn">
-    <div class="card">
-    <ul class="auth">
-      <li class="nav-link" _="on click toggle #login display to inline">
-        Login
-      </li>
-      <li class="nav-link" _="on click transition #register opacity to 1"> 
-        Register
-      </li>
-    </ul>
+<div class="rightcolumn">
+  <div class="cardauth">
+    <section class="auth">
+     <span class="login-button" href="#login-box" hx-get="/login-form">
+         Login
+       </span>
+    
+    
+    
+        <span class="register-button" href="#login-box" hx-get="/register-form">
+          Register
+        </span>
+    <section>
+  
 
-     
-      <section name="login-box">
-        <div class="login">
+    <section name="login-box" id="login-box" hx-trigger="true">
 
-          <form action="/api/login" method="POST" id="login">
-          <!-- login form -->
-            <input type="email" name="email" id="email" placeholder="Email"/>
-            <input type="password" name="Password" id="Password" placeholder="Password"/>
-          </form>
-
-          <form action="" id="register">
-            <!--  register form -->
-            <input type="email" name="email" id="email" placeholder="Email"/>
-            <input type="text" name="Username" id="Username" placeholder="Username"/>
-            <input type="password" name="Password" id="Password" placeholder="Password"/>
-          </form>
-        </div>
 
     </section>
-    </div>
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height:100px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3>Current Time For Me</h3>
-      <span hx-get="/api/time" hx-trigger="every 1s" hx-swap="outerHTML"></span>
-    </div>
-
-   <div class="card">
-      <h3>Follow Me</h3>
-      <p>Some text..</p>
-    </div>
   </div>
-</div>  
 
-  {{end}}
+
+
+
+
+<div class="card">
+  <h2>About Me</h2>
+  <div class="fakeimg" style="height:100px;">Image</div>
+  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+  <h3>Current Time For Me</h3>
+  <span hx-get="/api/time" hx-trigger="every 1s" hx-swap="outerHTML"></span>
+</div>
+
+<div class="card">
+  <h3>Follow Me</h3>
+  <p>Some text..</p>
+</div>
+</div>
+</div>

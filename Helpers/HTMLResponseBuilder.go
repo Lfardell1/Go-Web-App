@@ -4,11 +4,9 @@ import (
 	"net/http"
 )
 
-var form http.ResponseWriter
-
 // Lets Build Our Login and Signup Forms
 
-// HandleDynamicHTML handles the HTTP request and generates the HTML response dynamically
-func HandleDynamicHTML(w http.ResponseWriter, r *http.Request) {
+// HandleDynamicHTML handles the HTTP request and genersates the HTML response dynamically
+func HandleLoginForm(w http.ResponseWriter, r *http.Request) {
 
 }

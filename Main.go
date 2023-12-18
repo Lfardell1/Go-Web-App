@@ -53,8 +53,7 @@ func main() {
 	r.HandleFunc("/about", http.HandlerFunc(Route.AboutHandler))
 
 	// API Endpoints
-	r.HandleFunc("/api/Left/{page:[0-9]*}", http.HandlerFunc(Route.Left))
-	r.HandleFunc("/api/Right/{page:[0-9]*}", http.HandlerFunc(Route.Right))
+	r.HandleFunc("/api/Blogs/{page:[0-9]*}", http.HandlerFunc(Route.RenderBlogs))
 	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnLoginForm))
 	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnSignupForm))
 	r.HandleFunc("/api/time", http.HandlerFunc(Route.GetTime))

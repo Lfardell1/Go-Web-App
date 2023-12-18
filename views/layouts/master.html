@@ -1,29 +1,29 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Leon's Blog - Personal Blog</title>
-    <meta http-equiv="refresh" content="">
-    <!-- mobile responsive meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- ** Plugins Needed for the Project **-->
-    <link rel="stylesheet" href="..//../static/plugins/fontawesome/css/all.css">
-    <!-- Main Stylesheet -->
-    <link href="../../static/css/style.css" rel="stylesheet">
-
-    <!-- HTMX and Hypermedia  -->
-    <script src="../../static/plugins/HTMX/htmx.min.js"></script>
-    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-
-    <!--Favicon-->
-    <link rel="shortcut icon" href="../../static/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="../../static/images/favicon.png" type="image/x-icon">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>Leon's Blog - Personal Blog</title>
+        <meta http-equiv="refresh" content="">
+        <!-- mobile responsive meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <!-- ** Plugins Needed for the Project **-->
+        <link rel="stylesheet" href="..//../static/plugins/fontawesome/css/all.css">
+        <!-- Main Stylesheet -->
+        <link href="../../static/css/style.css" rel="stylesheet">
+    
+        <!-- HTMX and Hypermedia  -->
+        <script src="../../static/plugins/HTMX/htmx.min.js"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    
+        <!--Favicon-->
+        <link rel="shortcut icon" href="../../static/images/favicon.png" type="image/x-icon">
+        <link rel="icon" href="../../static/images/favicon.png" type="image/x-icon">
+    </head>
 <body>
     <div class="header">
-        <h2 class="Headline">THE RIGHT LEFT RIGHT BLOG</h2>
+        <h2 class="Headline">WEBSITE DEVELOPMENT FUTURE</h2>
         <section class="sub-header">
             <a class="nav-link-heading" id="1" href="">Backend Written in Golang</a>
             <a class="nav-link-heading" id="2" href="">Frontend Written with pure HTML/CSS</a>
@@ -37,8 +37,12 @@
         </section>
     </div>
     <div class="row">
-        {{template "content" .}}
-        {{template "sidebar" .}}
+    
+        
+        <div id="leftcolumn">
+            <span hx-get="/api/Blogs/" hx-swap="innerHTML" hx-target="#leftcolumn" hx-trigger="load">loading blogs</span>
+        </div>
+        {{include "layouts/sidebar" }}
     </div>
     {{include "layouts/footer"}}
 </body>
