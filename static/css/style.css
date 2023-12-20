@@ -22,6 +22,31 @@ body {
   background-color: white;
   padding: 20px;
 }
+.flat-button {
+  padding: 10px 20px;
+  background-color: #fff;
+  border: none;
+  color: #3498db;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.flat-button:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.error-message {
+  background-color:red; padding: 15px; border-radius:15px; color:white; opacity:0.5;border: #f1f1f1 1px; font-style:bold;
+}
+.success-message{
+  background-color:Green; padding: 15px; border-radius:15px; color:white; opacity:0.5;border: #f1f1f1 1px; font-style:bold;
+}
+.input-error .error-message {
+  display: block;
+}
+
+
 
 .Headline {
   font-size: 70px;
@@ -120,13 +145,6 @@ body {
   flex: 35%;
 }
 
-.card {
-  background-color: white;
-  padding: 30px;
-  margin: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-
-}
 
 .auth{
   background-color: white;
@@ -150,6 +168,7 @@ body {
 .register-button{
   width:50%;
   cursor: pointer;
+  margin-bottom: 50%;
   font-size: 20px;
   font-family: comfortaa;
   height:100%;
@@ -179,112 +198,220 @@ body {
   transform: scale(1.1);
   transition: ease-in-out 2s;
 }
-
-/* comment section  */
-
-.comment-section {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-}
-.comment-header{
-  font-size: 30px;
-  font-family: comfortaa;
-  text-align: center;
-  margin-bottom: 20px;  
+/* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+html {
+  box-sizing: border-box
 }
 
-/* Adjust font sizes for different elements within the cards */
-.authorbox {
-  font-weight: bold;
-  margin-bottom: 15px;
-  font-size: 1.2em;
-  /* Increased font size */
+*,*:before,*:after {
+  box-sizing: inherit
 }
 
-.author {
-  cursor: pointer;
-  /* Adding cursor pointer */
-  text-decoration: none;
-  /* Initially removing the underline */
-  position: relative;
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
 }
 
-.author:hover {
-  cursor: pointer;
+body {
+  margin: 0
+}
+
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section {
+  display: block
+}
+
+summary {
+  display: list-item
+}
+
+audio,canvas,progress,video {
+  display: inline-block
+}
+
+progress {
+  vertical-align: baseline
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0
+}
+
+[hidden],template {
+  display: none
+}
+
+a {
+  background-color: transparent
+}
+
+a:active,a:hover {
+  outline-width: 0
+}
+
+abbr[title] {
+  border-bottom: none;
   text-decoration: underline;
-  transition: ease-in-out 3s;
-  /* Removing the default underline on hover */
+  text-decoration: underline dotted
 }
 
-.author:after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  /* Adjust this value to your liking */
-  left: 0;
+b,strong {
+  font-weight: bolder
+}
+
+dfn {
+  font-style: italic
+}
+
+mark {
+  background: #ff0;
+  color: #000
+}
+
+small {
+  font-size: 80%
+}
+
+sub,sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline
+}
+
+sub {
+  bottom: -0.25em
+}
+
+sup {
+  top: -0.5em
+}
+.card {
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
   width: 100%;
-  height: 1px;
-  background-color: #000;
-  /* Change this color as needed */
-  transition: width 0.3s;
-  /* Adding a transition for the underline */
+  border-radius: 5px;
 }
 
-.author:hover:after {
+.card h3,
+.card h5,
+.card p {
+  margin: 0;
+}
+
+/* About Card Styles */
+.w3-card {
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.w3-card img {
   width: 100%;
-  /* Expanding the underline on hover */
+  border-radius: 5px;
 }
 
-.titlelead {
-  font-style: italic;
-  margin-bottom: 15px;
-  font-size: 1.1em;
-  /* Increased font size */
+/* Tags Styles */
+.tag {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: inline-block;
+  background-color: #f2f2f2;
+  color: #333;
 }
 
-.title {
-  font-weight: bold;
-  margin-bottom: 20px;
-  font-size: 1.6em;
-  /* Increased font size */
+/* Additional Styling for Specific Tags */
+.w3-tag.w3-black {
+  background-color: #333;
+  color: #fff;
 }
 
-.Content {
-  margin-bottom: 20px;
-  line-height: 1.6;
-  font-size: 1.1em;
+.tag {
+  background-color: #ccc;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+figure {
+  margin: 1em 40px
 }
 
+img {
+  border-style: none
+}
 
-.img {
+code,kbd,pre,samp {
+  font-family: monospace,monospace;
+  font-size: 1em
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible
+}
+
+button,input,select,textarea,optgroup {
+  font: inherit;
+  margin: 0
+}
+
+optgroup {
+  font-weight: bold
+}
+
+button,input {
+  overflow: visible
+}
+
+button,select {
+  text-transform: none
+}
+
+button,[type=button],[type=reset],[type=submit] {
+  -webkit-appearance: button
+}
+
+button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0
+}
+
+button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText
+}
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: .35em .625em .75em
+}
+
+legend {
+  color: inherit;
+  display: table;
   max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 15px;
+  padding: 0;
+  white-space: normal
 }
-.bottom-row{
-  display: flex;
-  flex-direction: row;
-  font-family: comfortaa;
-  font-size: 20px;
 
-}
-.rightcolumn .card {
-  margin-bottom: 30px;
-  /* Increased margin */
+textarea {
+  overflow: auto
 }
 
 
-
-.button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
 .footer {
   text-align: center;
@@ -352,59 +479,6 @@ input[type="submit"] {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
-/* Apply style to form field groups (if necessary) */
-.form-group {
-  margin-bottom: 15px;
-}
-
-.comments {
-  margin-top: 20px;
-}
-
-.comment-form {
-  margin-bottom: 20px;
-}
-
-.comment-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.comment-form textarea {
-  width: fit-content;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-  /* Allow vertical resizing of textarea */
-}
-
-.comment-form input[type="submit"] {
-  background-color: #333;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.comment-form input[type="submit"]:hover {
-  background-color: #555;
-}
-
-.existing-comments {
-  margin-top: 20px;
-}
-
-.comment {
-  margin-bottom: 10px;
-  padding: 8px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-}
-
 
 
 .footer{

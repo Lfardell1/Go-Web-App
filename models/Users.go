@@ -7,4 +7,5 @@ type User struct {
 	Name       string `db:"Name"`
 	Email      string `db:"Email"`
 	ProfilePic string `db:"ProfilePhoto"`
+	About      string `db:"About"`
 }

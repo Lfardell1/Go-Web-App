@@ -1,14 +1,15 @@
 package Routes
 
 import (
-	"html/template"
+	"fmt"
 	"log"
 	"net/http"
+	"net/mail"
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/lfardell1/Go-Web-App-Blog/Database"
 	Helpers "github.com/lfardell1/Go-Web-App-Blog/Helpers"
-	"github.com/lfardell1/Go-Web-App-Blog/middleware"
 	"github.com/lfardell1/Go-Web-App-Blog/models"
 )
 
@@ -19,16 +20,11 @@ type Response struct {
 
 type RequestHandler struct{}
 
+func init() {
+
+}
+
 func GetTime(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func ReturnLoginForm(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func ReturnSignupForm(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func RenderBlogs(w http.ResponseWriter, r *http.Request) {
@@ -56,68 +52,11 @@ func RenderBlogs(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Right(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	param := mux.Vars(r)
-	if param["page"] == "" || param["page"] == "0" {
-		param["page"] = "1"
-	}
-	page, err := strconv.Atoi(param["page"])
-	if page <= 0 {
-		page = 1
-	}
-
-	if err != nil {
-		log.Printf("Error retrieving page: %v", err)
-		http.Error(w, "Error retrieving page", http.StatusInternalServerError)
-		return
-	}
-
-	// Fetch blog posts for the requested page using your middleware function
-	posts, err := middleware.PaginateBlogResults(uint(page))
-	if err != nil {
-		log.Printf("Error retrieving posts: %v", err)
-		http.Error(w, "Error retrieving posts", http.StatusInternalServerError)
-		return
-	}
-
-	// Render the retrieved posts using your template engine
-	// Render index template
-	data := struct {
-		Title string
-		Name  string
-		Posts []models.Post
-		Page  models.Page // Assuming Post is your data structure
-	}{
-		Title: "Go Web App",
-		Name:  "Leon",
-		Posts: posts.Posts,
-		Page:  posts,
-	}
-
-	// Parse the HTML template
-	tmpl, err := template.ParseFiles("template.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Execute the template with the updated data
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
 func PaginationHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	// Logic to fetch users data from a database or provide dummy data
 
 }
 
@@ -166,8 +105,125 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 // Register handles user registration
 func Register(w http.ResponseWriter, r *http.Request) {
-	// Logic for user registration, validating input data, and storing user information
-	// Implement your registration logic here, validate user input, store user data, and return appropriate responses
+
+	//check form values being submitted
+	log.Println(r.FormValue("username") + " " + r.FormValue("email") + " " + r.FormValue("name") + " " + r.FormValue("password"))
+	// Get the form values
+	username := r.FormValue("username")
+	email := r.FormValue("email")
+	name := r.FormValue("name")
+	password := r.FormValue("password")
+
+	// Validate form values
+	if username == "" || email == "" || password == "" || name == "" {
+		renderErrorMessage(w, "Error creating user, Some fields weren't filled out!")
+		return
+	}
+
+	// Create a new user model
+	var NewUser models.User
+	NewUser.Username = username
+	NewUser.Email = email
+	NewUser.Name = name
+	NewUser.Password = password
+
+	// Now we submit to the database and allow it to make some checks and we'll get back a user
+	_, err := Database.CreateUser(NewUser)
+	if err != nil {
+		renderErrorMessage(w, "Error creating user")
+		return
+
+	}
+
+	renderSuccessMessage(w, "User Created")
+
+	// Save the session'
+
+	// Redirect to the home page
+
+}
+
+func ValidateUsername(w http.ResponseWriter, r *http.Request) {
+	UsernametoCheck := r.FormValue("username")
+	fmt.Println(UsernametoCheck)
+
+	if UsernametoCheck == "" || UsernametoCheck == " " {
+
+		renderErrorMessage(w, "Please Enter A Username")
+	}
+	if Database.CheckIfUsernameExists(UsernametoCheck) {
+		// Render error message in the HTML itself
+		errorMessage := "Username already exists"
+		renderErrorMessage(w, errorMessage)
+	}
+}
+
+func ValidateName(w http.ResponseWriter, r *http.Request) {
+	NameToCheck := r.FormValue("name")
+	fmt.Println(NameToCheck)
+	if NameToCheck == "" || NameToCheck == " " {
+		renderErrorMessage(w, "Please Enter A Name")
+	}
+	// might need to check names later who knows
+}
+func ValidateEmail(w http.ResponseWriter, r *http.Request) {
+
+	EmailToCheck := r.FormValue("email")
+	fmt.Println(EmailToCheck)
+	if !IsValidEmail(EmailToCheck) {
+		// Render error message in the HTML itself
+		errorMessage := "Only alphabetic characters and no attempting escape characters"
+		renderErrorMessage(w, errorMessage)
+	}
+	if Database.CheckIfEmailExists(EmailToCheck) {
+		// Render error message in the HTML itself
+		errorMessage := "You're already in our database!"
+		renderErrorMessage(w, errorMessage)
+	}
+	fmt.Println(EmailToCheck)
+}
+func ValidatePassword(w http.ResponseWriter, r *http.Request) {
+	password := r.FormValue("password")
+	confirmPassword := r.FormValue("confirm-password")
+	if len(confirmPassword) < 7 {
+		// Render error message in the HTML itself
+		errorMessage := "Password less then 8 characters"
+		renderErrorMessage(w, errorMessage)
+	}
+	if len(password) > 50 {
+		// Render error message in the HTML itself
+		errorMessage := "Password should be less then 50 characters"
+		renderErrorMessage(w, errorMessage)
+	}
+
+}
+
+func IsValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func renderErrorMessage(w http.ResponseWriter, message string) {
+	// Render the error message directly within the HTML
+	errorHTML := `<p class="error-message  fade-me-in fade-me-out" style="transition: all 5s ease-out;" _"on load transition my *opacity to 0">` + message + `</p>`
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Write([]byte(errorHTML))
+}
+func renderSuccessMessage(w http.ResponseWriter, message string) {
+	// Render the error message directly within the HTML
+	errorHTML := `<section class="success-message" _="on load transition my *opacity to 0"> <p style="transition: all 800ms ease-in;" _="on click transition my *display to 'none'">` + message + `</p>`
+	errorHTML += `<span style="font-size:10px;"></span></section>`
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Write([]byte(errorHTML))
 }
 
 // DeletePost handles deleting a post

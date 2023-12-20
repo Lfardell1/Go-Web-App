@@ -12,9 +12,9 @@ func renderPaginationSection(page int) string {
 
 	paginationHTML := fmt.Sprintf(`
     <section class="Pagination">
-        <span class="Paginate" hx-get="/api/Blogs/%d" hx-target="#leftcolumn" hx-swap="innerHTML">PREVIOUS</span>
+        <button class="Paginate" hx-get="/api/Blogs/%d" hx-target="#blogs" hx-swap="innerHTML">PREVIOUS</button>
                         <span class="Paginate">Page %d</span>	
-		<span class="Paginate" hx-get="/api/Blogs/%d" hx-target="#leftcolumn" hx-swap="innerHTML">NEXT</span>
+		<button class="Paginate" hx-get="/api/Blogs/%d" hx-target="#blogs" hx-swap="innerHTML">NEXT</button>
     </section>`, (page - 1), page, (page + 1))
 
 	return paginationHTML
@@ -35,28 +35,27 @@ func RenderBlogPostsPage(w http.ResponseWriter, page int) {
 
 	for _, post := range posts.Posts {
 
-		html += "<div class='card' id='blog'>"
-		html += "<section class='Details'>"
-		html += "<h3 class='authorbox'>"
-		html += "<div class='beforename'>Author:</div>"
-		html += "<div class='author'>" + post.Author + "</div>"
-		html += "</h3>"
-		html += "<section class='title'>"
-		html += "<h4 class='titlelead'>Title:</h4>"
-		html += "<h2 class='title'>" + post.Title + "</h2>"
-		html += "</section>"
-		html += "</section>"
-		html += "<hr>"
-		html += "<p class='Content'><b>" + post.Content + "</b></p>"
-		html += "<h5>Published: " + post.DateCreated.Format("Jan 02, 2006") + "</h5>"
-		html += "<div class='bottom-row'>"
-		html += "<img class='img' width='500' height='700' src='" + post.ImageURL + "'></img>"
-		html += "<span class='comment-section'><span class='comment-heading'>Comments:</span></span>"
-		html += "</div>"
-		html += "</div>"
+		html += fmt.Sprintf(`<div class="w3-card">
+		<img src="%s alt="Nature">
+		<div class="w3-container">
+		  <h3><b>%s</b></h3>
+		  <h5>%s <span class="w3-opacity">%s</span></h5>
+		</div>
+	
+		<div class="w3-container">
+		  <p>%s</p>
+		  <div class="w3-row">
+			<div class="w3-col m8 s12">
+			  <p><button class="flat-button"><b>READ MORE »</b></button></p>
+			</div>
+			<div class="w3-col m4 w3-hide-small">
+			  <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-tag">0</span></span></p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <hr>`, post.ImageURL, post.Title, post.Author, post.DateCreated.Format("January 2, 2006"), post.Content)
 	}
-
-	html += "</div>"
 
 	finalHTML := paginationHTML + html
 

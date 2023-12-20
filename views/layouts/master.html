@@ -23,27 +23,28 @@
     </head>
 <body>
     <div class="header">
-        <h2 class="Headline">WEBSITE DEVELOPMENT FUTURE</h2>
+        <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem] text-center font-abel">
+            WEBSITE DEVELOPMENT FUTURE</h2>
         <section class="sub-header">
             <a class="nav-link-heading" id="1" href="">Backend Written in Golang</a>
             <a class="nav-link-heading" id="2" href="">Frontend Written with pure HTML/CSS</a>
             <a class="nav-link-heading" id="3" href="">HTMX/HYPERSCRIPT used for reactivity</a>
         </section>
-        <section class="top">
-            <ul class="navbar">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-            </ul>
-        </section>
     </div>
-    <div class="row">
+
     
+  <div class="row">
+    <!-- Blog entries -->
+<div class="leftcolumn">
+        <div id="blogs">
+            <span hx-get="/api/Blogs/" hx-swap="innerHTML" hx-target="#blogs" hx-trigger="load">loading blogs</span>
         
-        <div id="leftcolumn">
-            <span hx-get="/api/Blogs/" hx-swap="innerHTML" hx-target="#leftcolumn" hx-trigger="load">loading blogs</span>
-        </div>
-        {{include "layouts/sidebar" }}
+        
     </div>
-    {{include "layouts/footer"}}
+    
+    {{include "layouts/sidebar" }}
+    
+</div>  
+
 </body>
 </html>

@@ -1,11 +1,13 @@
 package Database
 
 import (
+	"fmt"
 	"log"
 
 	models "github.com/lfardell1/Go-Web-App-Blog/models"
 	"github.com/upper/db/v4"
 	"github.com/upper/db/v4/adapter/mysql"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type ConnectionURL struct {
@@ -37,6 +39,7 @@ func init() {
 
 // Retrieve all users
 func RetrieveUsers() ([]models.User, error) {
+
 	UserCollection := conn.Collection("Users")
 	results := UserCollection.Find()
 
@@ -47,6 +50,45 @@ func RetrieveUsers() ([]models.User, error) {
 	}
 
 	return users, nil
+}
+
+// Create User
+
+func CreateUser(NewUser models.User) (models.User, error) {
+	UserCollection := conn.Collection("Users")
+	results := UserCollection.Find()
+	var users []models.User
+	err := results.All(&users)
+	if err != nil {
+		return NewUser, err
+
+	}
+	// check if email exists
+	for _, user := range users {
+		if user.Email == NewUser.Email {
+			return user, err
+		}
+	}
+
+	// if no email found insert user
+	// using hashing system for password
+
+	HashPassword, err := HashPassword(NewUser.Password)
+	if err != nil {
+		fmt.Println(err)
+
+	}
+
+	NewUser.Password = HashPassword
+
+	_, err = UserCollection.Insert(NewUser)
+	if err != nil {
+
+		log.Fatalln(err)
+		return NewUser, err
+	}
+
+	return NewUser, nil
 }
 
 // Single blog
@@ -77,6 +119,20 @@ func PaginateBlogResults(page uint, postsPerPage uint) (models.Page, error) {
 	if err != nil {
 		return models.Page{}, err
 	}
+	// find the comments related to this post and the author that made it
+	for i := 0; i < len(posts); i++ {
+		// find the comments related to this post and the author that made it
+		comments, err := RetrieveComments(posts[i].ID)
+		if err != nil {
+			return models.Page{}, err
+		}
+		posts[i].Comments = comments
+		author, err := RetrieveUser(posts[i].AuthorID)
+		if err != nil {
+			return models.Page{}, err
+		}
+		posts[i].Author = author.Username
+	}
 
 	// Count total number of posts
 	totalPostsCount, err := blogsTable.Find().Count()
@@ -106,6 +162,30 @@ func PaginateBlogResults(page uint, postsPerPage uint) (models.Page, error) {
 	return paginatedData, nil
 }
 
+func RetrieveComments(id uint) ([]models.Comment, error) {
+	CommentCollection := conn.Collection("Comments")
+	resultscomments := CommentCollection.Find(db.Cond{"PostID": id})
+
+	var comments []models.Comment
+	err := resultscomments.All(&comments)
+	if err != nil {
+		return nil, err
+	}
+
+	return comments, nil
+}
+
+func RetrieveUser(id uint) (models.User, error) {
+	UserCollection := conn.Collection("Users")
+	results := UserCollection.Find(db.Cond{"id": id})
+	var user models.User
+	err := results.One(&user)
+	if err != nil {
+		return user, err
+	}
+	return user, nil
+}
+
 func RetrievePost(id int) ([]models.Post, error) {
 	BlogCollection := conn.Collection("Blogs")
 	resultsblogs := BlogCollection.Find(db.Cond{"id": id})
@@ -117,4 +197,45 @@ func RetrievePost(id int) ([]models.Post, error) {
 	}
 
 	return post, nil
+}
+func CheckIfEmailExists(email string) bool {
+	UserCollection := conn.Collection("Users")
+	results := UserCollection.Find()
+	var users []models.User
+	err := results.All(&users)
+	if err != nil {
+		return false
+	}
+
+	for _, user := range users {
+		if user.Email == email {
+			return true
+		}
+	}
+	return false
+}
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+func CheckIfUsernameExists(username string) bool {
+	UserCollection := conn.Collection("Users")
+	results := UserCollection.Find()
+	var users []models.User
+	err := results.All(&users)
+	if err != nil {
+		return false
+	}
+
+	for _, user := range users {
+		if user.Username == username {
+			return true
+		}
+	}
+	return false
 }

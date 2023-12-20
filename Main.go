@@ -7,7 +7,6 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-
 	Route "github.com/lfardell1/Go-Web-App-Blog/Routes"
 	"github.com/lfardell1/Go-Web-App-Blog/middleware"
 )
@@ -33,6 +32,8 @@ func main() {
 	// Allow access to the static files
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
+	// Add in the logger middleware
+
 	logger := middleware.NewLogger()
 
 	// setting up some pagination
@@ -54,8 +55,6 @@ func main() {
 
 	// API Endpoints
 	r.HandleFunc("/api/Blogs/{page:[0-9]*}", http.HandlerFunc(Route.RenderBlogs))
-	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnLoginForm))
-	r.HandleFunc("/api/LoginForm", http.HandlerFunc(Route.ReturnSignupForm))
 	r.HandleFunc("/api/time", http.HandlerFunc(Route.GetTime))
 	r.HandleFunc("/api/users", http.HandlerFunc(Route.GetUsers))
 	r.HandleFunc("/api/posts/:id", http.HandlerFunc(Route.GetPost))
@@ -69,7 +68,10 @@ func main() {
 	r.HandleFunc("/api/deleteUser", http.HandlerFunc(Route.DeleteUser))
 	r.HandleFunc("/api/getUser", http.HandlerFunc(Route.GetUser))
 	r.HandleFunc("/api/getUserPosts", http.HandlerFunc(Route.GetUserPosts))
-	r.HandleFunc("/api/getUserPosts/:id", http.HandlerFunc(Route.GetUserPost))
+	r.HandleFunc("/validate/username", http.HandlerFunc(Route.ValidateUsername))
+	r.HandleFunc("/validate/email", http.HandlerFunc(Route.ValidateEmail))
+	r.HandleFunc("/validate/name", http.HandlerFunc(Route.ValidateName))
+	r.HandleFunc("/validate/confirm-password", http.HandlerFunc(Route.ValidatePassword))
 
 	// Allow logging on server
 	writeLog := io.MultiWriter(os.Stdout, infoLog)

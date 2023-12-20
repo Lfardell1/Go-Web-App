@@ -1,40 +1,110 @@
+<!-- Blog entry -->
+<div class="card" id="rightcolumn">
+  <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
+    <div class="w3-container">
+      <h3><b>BLOG ENTRY</b></h3>
+      <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
+    </div>
 
-<div class="rightcolumn">
-  <div class="cardauth">
-    <section class="auth">
-     <span class="login-button" href="#login-box" hx-get="/login-form">
-         Login
-       </span>
-    
-    
-    
-        <span class="register-button" href="#login-box" hx-get="/register-form">
-          Register
-        </span>
-    <section>
-  
-
-    <section name="login-box" id="login-box" hx-trigger="true">
-
-
-    </section>
+    <div class="w3-container">
+      <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+        </div>
+        <div class="w3-col m4 w3-hide-small">
+          <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">2</span></span></p>
+        </div>
+      </div>
+    </div>
   </div>
+<!-- END BLOG ENTRIES -->
+</div>
 
-
-
-
-
+<!-- Introduction menu -->
 <div class="card">
-  <h2>About Me</h2>
-  <div class="fakeimg" style="height:100px;">Image</div>
-  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-  <h3>Current Time For Me</h3>
-  <span hx-get="/api/time" hx-trigger="every 1s" hx-swap="outerHTML"></span>
-</div>
+  <!-- About Card -->
+  <div class="w3-card w3-margin w3-margin-top">
+  <img src="/w3images/avatar_g.jpg" style="width:100%">
+    <div class="w3-container w3-white">
+      <h4><b>My Name</b></h4>
+      <p>Just me, myself and I, exploring the universe of uknownment. I have a heart of love and a interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
+    </div>
+  </div><hr>
+  
+  <!-- Posts -->
+  <div class="card">
+    <span class="" hx-post="/api/register" hx-target="#result" hx-validate="" hx-swap="innerHTML" hx-trigger="click target:#submit-button" hx-boost="true">
+      Register
+    </span>
+    <div id="result">
+      <!-- Result of the form submission will be loaded here -->
+    </div>
+    <form id="register-form" class="register">
+      <label class="username">
+        <span>Username</span>
+        <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username" required hx-trigger="blur" hx-get="/validate/username" hx-swap="innerHTML" hx-target="#username-error">
+        <span class="" id="username-error"></span>
+      </label>
+      <label class="username">
+        <span>Name</span>
+        <input id="name" name="name" value="" type="text" autocomplete="on" placeholder="Name" required  hx-trigger="blur" hx-get="/validate/name" hx-swap="innerHTML" hx-target="#name-error">
+        <span class="" id="name-error" ></span>
+      </label>
+      <label class="email">
+        <span>Email</span>
+        <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email" required hx-trigger="blur" hx-get="/validate/email"  hx-swap="innerHTML" hx-target="#email-error">
+        <span class="" id="email-error" ></span>
+      </label>
+      <label class="password">
+        <span>Password</span>
+        <input id="password" name="password" value="" type="password" placeholder="Password" hx-swap="innerHTML" required>
+        <span class="" id="password-error" ></span>
+      </label>
+      <label class="password">
+        <span>Confirm Password</span>
+        <input id="confirm-password" name="confirm-password" value="" type="password" placeholder="Confirm Password" hx-swap="innerHTML" required hx-get="/validate/confirm-password" hx-target="#confirm-password-error">
+        <span class="" id="confirm-password-error"></span>
+      </label>
+      <button class="flat-button" id="submit-button" type="submit">Sign up</button>
+    </form>
+  </div>
+  <hr> 
 
-<div class="card">
-  <h3>Follow Me</h3>
-  <p>Some text..</p>
-</div>
-</div>
-</div>
+  <div class="card">
+    <span class="" hx-post="/api/login" hx-target="#loginresult" hx-validate="" hx-swap="innerHTML" hx-trigger="click target:#submit-button" hx-boost="true">
+      Register
+    </span>
+    <div id="result">
+      <!-- Result of the form submission will be loaded here -->
+    </div>
+    <form id="register-form" class="register">
+      <label class="email">
+        <span>Email</span>
+        <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email" required hx-trigger="blur" hx-get="/validate/email"  hx-swap="innerHTML" hx-target="#email-error">
+        <span class="error-message" id="email-error" ></span>
+      </label>
+      <label class="password">
+        <span>Password</span>
+        <input id="password" name="password" value="" type="password" placeholder="Password" hx-swap="innerHTML" required>
+        <span class="error-message" id="password-error" ></span>
+      </label>
+      <button class="flat-button" id="submit-button" type="submit">Sign in</button>
+    </form>
+  </div>
+ 
+  <!-- Labels / tags -->
+  <div class="card">
+    <div class="">
+      <h4>Tags</h4>
+    </div>
+    <div class="w3-container w3-white">
+    <p><span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="tag">New York</span> 
+      <span class="tag">IKEA</span> <span class="">NORWAY</span> <span class="w">DIY</span>
+      <span class="tag">Ideas</span> <span class="w">Baby</span> <span class="w">Family</span>
+      <span class="tag">News</span> <span class="">Clothing</span> <span class="">Shopping</span>
+      <span class="tag">Sports</span> <span class="w3">Games</span>
+    </p>
+    </div>
+  </div>
