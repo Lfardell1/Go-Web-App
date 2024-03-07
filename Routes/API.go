@@ -82,10 +82,35 @@ func GetUserPost(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// LoginAPIHandler handles the login functionality
+// Login LoginAPIHandler handles the login functionality
 func Login(w http.ResponseWriter, r *http.Request) {
 	// Logic for handling user login, authentication, and generating tokens
 	// Implement your login logic here, handle user authentication, and generate tokens if successful
+	// TODO: Santise the form values
+	email := r.FormValue("login_email")
+
+	password := r.FormValue("login_password")
+
+	log.Println(r.FormValue(email + " " + password))
+
+	// create a user object
+
+	var loggedUser models.User
+
+	loggedUser.Password = password
+	loggedUser.Email = email
+
+	loggedUser, err := Database.LoginUser(loggedUser)
+
+	log.Println(loggedUser)
+
+	if err != nil {
+		renderErrorMessage(w, "Error logging in")
+		return
+	}
+
+	renderSuccessMessage(w, "User Created")
+
 }
 
 // Logout handles user logout
@@ -105,7 +130,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 // Register handles user registration
 func Register(w http.ResponseWriter, r *http.Request) {
-
+	// TODO: Santise the form values
 	//check form values being submitted
 	log.Println(r.FormValue("username") + " " + r.FormValue("email") + " " + r.FormValue("name") + " " + r.FormValue("password"))
 	// Get the form values
@@ -137,7 +162,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	renderSuccessMessage(w, "User Created")
 
-	// Save the session'
+	// Save the session
 
 	// Redirect to the home page
 

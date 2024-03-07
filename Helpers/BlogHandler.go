@@ -35,23 +35,25 @@ func RenderBlogPostsPage(w http.ResponseWriter, page int) {
 
 	for _, post := range posts.Posts {
 
-		html += fmt.Sprintf(`<div class="w3-card">
-		<img src="%s alt="Nature">
-		<div class="w3-container">
-		  <h3><b>%s</b></h3>
-		  <h5>%s <span class="w3-opacity">%s</span></h5>
-		</div>
-	
-		<div class="w3-container">
-		  <p>%s</p>
-		  <div class="w3-row">
-			<div class="w3-col m8 s12">
-			  <p><button class="flat-button"><b>READ MORE »</b></button></p>
+		html += fmt.Sprintf(`
+		<div class="w3-card">
+			<img src="%s alt="Nature">
+			<div class="w3-container">
+				  <h3><b>%s</b></h3>
+				  <h5>%s <span class="w3-opacity">%s</span></h5>
 			</div>
-			<div class="w3-col m4 w3-hide-small">
-			  <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-tag">0</span></span></p>
+		
+			<div class="w3-container">
+			  <p>%s</p>
+			  <div class="w3-row">
+				<div class="w3-col m8 s12">
+				  <p><button class="flat-button"><b>READ MORE »</b></button></p>
+				</div>
+				<div class="w3-col m4 w3-hide-small">
+				  <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-tag">0</span></span></p>
+				</div>
+			  </div>
 			</div>
-		  </div>
 		</div>
 	  </div>
 	  <hr>`, post.ImageURL, post.Title, post.Author, post.DateCreated.Format("January 2, 2006"), post.Content)

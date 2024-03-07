@@ -41,7 +41,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Render the retrieved posts using your template engine
 	// Render index template
 	data := struct {
 		Title string
@@ -55,7 +54,10 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Page:  posts,
 	}
 
-	goview.Render(w, http.StatusOK, "index", data)
+	err = goview.Render(w, http.StatusOK, "index", data)
+	if err != nil {
+		return
+	}
 }
 
 func AboutHandler(w http.ResponseWriter, r *http.Request) {

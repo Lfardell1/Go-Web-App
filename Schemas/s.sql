@@ -2,6 +2,8 @@
 # TABLE STRUCTURE FOR: Blogs
 #
 
+USE go;
+
 DROP TABLE IF EXISTS `Blogs`;
 
 CREATE TABLE `Blogs` (

@@ -4,8 +4,8 @@
 
 /* Resetting default browser styles */
 * {
-  margin: 10;
-  padding: 10;
+  margin: 10px;
+  padding: 10px;
   box-sizing: border-box;
 }
 
@@ -13,8 +13,8 @@
 body {
   font-family: comfortaa, sans-serif;
   background-color: #f1f1f1;
-  margin: 20;
-  padding: 10;
+  margin: 20px;
+  padding: 10px;
 }
 
 .header {
@@ -51,7 +51,7 @@ body {
 .Headline {
   font-size: 70px;
   font-family: Abel;
-  
+
   margin: 10px 0;
 }
 .Headline:hover{
@@ -63,7 +63,7 @@ body {
 .sub-header {
   display: flex;
   font-size: 30px;
-  font-family: Abel;
+  font-family: Abel, serif;
   margin-left: 10px;
   justify-content: space-around;
   background-color: white;

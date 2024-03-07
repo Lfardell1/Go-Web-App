@@ -19,10 +19,10 @@ type ConnectionURL struct {
 }
 
 var settings = mysql.ConnectionURL{
-	Database: "GoWebApp",
-	Password: "go",
+	Database: "go",
+	Password: "leon",
 	Host:     "127.0.0.1",
-	User:     "go",
+	User:     "root",
 }
 
 // Establish a connection to the database
@@ -37,7 +37,7 @@ func init() {
 
 }
 
-// Retrieve all users
+// RetrieveUsers Retrieve all users
 func RetrieveUsers() ([]models.User, error) {
 
 	UserCollection := conn.Collection("Users")
@@ -50,6 +50,27 @@ func RetrieveUsers() ([]models.User, error) {
 	}
 
 	return users, nil
+}
+
+// Login User
+
+func LoginUser(user models.User) (models.User, error) {
+	UserCollection := conn.Collection("Users")
+	results := UserCollection.Find(db.Cond{"email": user.Email})
+	var users []models.User
+	err := results.All(&users)
+	if err != nil {
+		return user, err
+	}
+	if len(users) == 0 {
+		return user, fmt.Errorf("User not found")
+	}
+
+	// check if password matches
+	if !CheckPasswordHash(user.Password, users[0].Password) {
+		return user, fmt.Errorf("Password does not match")
+	}
+	return users[0], nil
 }
 
 // Create User
@@ -91,7 +112,7 @@ func CreateUser(NewUser models.User) (models.User, error) {
 	return NewUser, nil
 }
 
-// Single blog
+// RetrieveBlogPost Single blog
 func RetrieveBlogPost() ([]models.Post, error) {
 	BlogCollection := conn.Collection("Blogs")
 	resultsblogs := BlogCollection.Find()

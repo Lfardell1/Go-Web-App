@@ -1,26 +1,9 @@
 <!-- Blog entry -->
 <div class="card" id="rightcolumn">
-  <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
-    <div class="w3-container">
-      <h3><b>BLOG ENTRY</b></h3>
-      <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
-    </div>
 
-    <div class="w3-container">
-      <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-        </div>
-        <div class="w3-col m4 w3-hide-small">
-          <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">2</span></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- END BLOG ENTRIES -->
-</div>
+
+
+
 
 <!-- Introduction menu -->
 <div class="card">
@@ -35,13 +18,10 @@
   
   <!-- Posts -->
   <div class="card">
-    <span class="" hx-post="/api/register" hx-target="#result" hx-validate="" hx-swap="innerHTML" hx-trigger="click target:#submit-button" hx-boost="true">
-      Register
-    </span>
     <div id="result">
       <!-- Result of the form submission will be loaded here -->
     </div>
-    <form id="register-form" class="register">
+    <form id="register-form" class="register" action="/api/register" method="POST">
       <label class="username">
         <span>Username</span>
         <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username" required hx-trigger="blur" hx-get="/validate/username" hx-swap="innerHTML" hx-target="#username-error">
@@ -73,24 +53,21 @@
   <hr> 
 
   <div class="card">
-    <span class="" hx-post="/api/login" hx-target="#loginresult" hx-validate="" hx-swap="innerHTML" hx-trigger="click target:#submit-button" hx-boost="true">
-      Register
-    </span>
-    <div id="result">
+    <div id="login_result">
       <!-- Result of the form submission will be loaded here -->
     </div>
-    <form id="register-form" class="register">
+    <form id="login_form" class="login" action="/api/login" method="POST">
       <label class="email">
         <span>Email</span>
-        <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email" required hx-trigger="blur" hx-get="/validate/email"  hx-swap="innerHTML" hx-target="#email-error">
-        <span class="error-message" id="email-error" ></span>
+        <input id="login_email" name="login_email" value="" type="text" autocomplete="on" placeholder="Email">
+        <span class="error-message" id="login_email-error" ></span>
       </label>
       <label class="password">
         <span>Password</span>
-        <input id="password" name="password" value="" type="password" placeholder="Password" hx-swap="innerHTML" required>
-        <span class="error-message" id="password-error" ></span>
+        <input id="login_password" name="login_password" value="" type="password" placeholder="Password" required>
+        <span class="error-message" id="login_password-error" ></span>
       </label>
-      <button class="flat-button" id="submit-button" type="submit">Sign in</button>
+      <button class="flat-button" id="login_submit-button" type="submit">Sign in</button>
     </form>
   </div>
  
@@ -108,3 +85,5 @@
     </p>
     </div>
   </div>
+</div>
+</div>
