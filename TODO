@@ -1,10 +1,6 @@
-Make a whole lot of html come from the server
-Make the a server based website
- -HTMX Ideas 
+HTMX
     - Regular pings for new comments
     - Other users online 
     - interactive server stuff
-Work out putting comments in sensible place
-get next page of comments from button
-
-Time to use TEMPL
+    - Login / Register
+I need to remove gorilla MUX as GO's new update has rendered this obsolete for my purposes.
